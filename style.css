@@ -10,42 +10,37 @@ body {
     height: 100vh;
 }
 
-main {
-    width: 100%;
-    max-width: 600px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+header {
+    width: 100%; /* Sicherstellen, dass der Header die volle Breiten einnimmt */
+    background-color: #e0e0e0; /* Ein leichter Grauton, um ihn vom Rest der Seite abzuheben */
+    text-align: center; /* Zentriert den Text im Header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für eine Tiefenwirkung */
+    border-bottom: 1px solid #ccc; /* Feine Linie zur optischen Trennung */
+    padding: 20px 10px; /* Vertikales und horizontales Padding */
+    margin-top: 0;
+    margin-bottom: 10px; /* Bietet etwas Raum nach unten */
 }
 
 h1 {
-    font-size: 2em; /* Angepasst für bessere Sichtbarkeit auf Desktops */
-    margin: 1em 0; /* Korrigiert einen möglichen Fehler im Margin */
-    text-align: center; /* Zentriert den Titel */
+    font-size: 24px; /* Erhöht für bessere Lesbarkeit */
+    margin-top: 0; /* Entfernt den oberen Abstand, da dieser vom Header übernommen wird */
+    margin-bottom: 0; /* Kein unterer Abstand, glatte Übergänge innerhalb des Headers */
 }
 
-.media-container {
-    position: relative; /* Container für Positionierung der Inhalte */
-    width: 100%; /* Nutzt die volle verfügbare Breite */
-    max-width: 640px; /* Maximale Breite, um Überdehnung zu vermeiden */
-    margin: 20px auto; /* Zentriert den Container horizontal */
-}
-#video, #canvas {
-    width: 100%; /* Sorgt dafür, dass es sich an den Container anpasst */
-    max-height: 360px; /* Begrenzt die Höhe, um Überdehnung auf großen Bildschirmen zu vermeiden */
-    border-radius: 8px; /* Stilistische Wahl für abgerundete Ecken */
-    display: block; /* Block-Display entfernt unerwünschte Ränder/Abstände */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Schatten für besseren visuellen Effekt */
+#video, #canvas, #photo {
+    width: 480px; /* Eher horizontales Format */
+    height: 270px;
+    border: 2px solid #333;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-
-.zoom-container {
+.zoom-button-container {
     display: flex;
     justify-content: center;
-    gap: 20px; 
-    margin-bottom: 20px; 
+    gap: 20px;
+    margin-top: 20px;
 }
 
 .button-container {
@@ -53,13 +48,12 @@ h1 {
     flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
-    width: 100%;
-    max-width: 600px;
+    margin-top: 20px;
 }
 
 button {
     cursor: pointer;
-    background-color: transparent; 
+    background-color: transparent;
     border: none;
     position: relative;
 }
@@ -92,29 +86,26 @@ button:active .tooltip-text {
     opacity: 1;
 }
 
+#switchButton {
+    margin-top: 10px; /* Abstand nach oben hinzufügen */
+    display: block; /* Sicherstellen, dass der Button angezeigt wird */
+    position: absolute; /* Position absolut setzen */
+    top: 50%; /* Abstand nach oben zum Kamerabereich */
+    right: 50%; /* Abstand zum rechten Rand */
+    transform: translate(50%, -50%); /* Horizontal und vertikal zentrieren */
+}
+
 textarea {
-    width: 90%; /* Flexiblere Breitenanpassung */
-    max-width: 320px;
-    min-height: 100px; /* Mindesthöhe für bessere Lesbarkeit */
-    height: auto; /* Automatische Höhe je nach Inhalt */
-    padding: 10px; /* Ausreichendes Padding */
-    border-radius: 8px;
-    font-size: 16px; /* Leicht lesbar auf allen Geräten */
-    line-height: 1.5; /* Bessere Zeilenhöhe */
-    resize: none;
     margin-top: 20px;
+    width: 90%;
+    max-width: 320px;
+    min-height: 76px; /* Höhe angepasst für 4 Zeilen */
+    border-radius: 8px;
+    padding: 12px;
+    resize: none;
 }
 
-
-#operatingSystem {
-    margin-top: 10px;
-}
-
-#barcodeResult {
-    margin-top: 10px;
-}
-
-#locationDisplay {
+#operatingSystem, #barcodeResult, #locationDisplay {
     margin-top: 10px;
 }
 
@@ -122,7 +113,7 @@ footer {
     width: 100%;
     padding: 20px;
     text-align: center;
-    margin-top: auto;
+    margin-top: 20px;
     border-top: 2px solid #333;
 }
 
@@ -131,42 +122,54 @@ footer {
 }
 
 @keyframes blink-green {
-    0% {
-        border-color: #333;
-    }
-    100% {
-        border-color: green;
-    }
+    0% { border-color: #333; }
+    100% { border-color: green; }
 }
 
 @media only screen and (max-width: 600px) {
+    header {
+        font-size: 16px; /* Etwas kleinere Schriftgröße für kleine Bildschirme */
+        padding: 15px 5px; /* Weniger Padding auf kleinen Bildschirmen */
+    }
+    
     h1 {
-        font-size: 1.5em; /* Kleinere Schriftgröße für mobile Geräte */
-    }
-    .media-container {
-        max-width: 100%; /* Erlaubt es dem Container, auf kleinen Bildschirmen zu expandieren */
+        font-size: 20px; /* Kleinere Schriftgröße, angepasst an den kleineren Header */
     }
 
-    #video, #canvas {
-        max-height: 200px; /* Passt die Höhe auf kleineren Bildschirmen an */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
     }
-    .zoom-container,
-    .button-container {
-        flex-direction: row; /* Stellt sicher, dass die Buttons in einer Zeile bleiben */
-        flex-wrap: nowrap; /* Verhindert das Umbrechen der Buttons */
-        overflow-x: auto; /* Erlaubt horizontales Scrollen bei vielen Buttons */
+    
+    #video, #canvas, #photo {
+        width: 90%; /* Volle Breite nutzen, aber mit etwas Abstand zu den Rändern */
+        height: auto; /* Höhe passt sich dynamisch an */
     }
 
-    button {
-        padding: 10px; /* Erhöht den Abstand um die Buttons, um Touch-Bedienung zu erleichtern */
-        min-width: 80px; /* Mindestbreite für bessere Touch-Zielflächen */
+    .zoom-button-container, .button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
     }
 
     button img {
-        height: 30px; /* Anpassung der Bildgröße für kleine Bildschirme */
-        width: 30px;
+        height: 40px; /* Kleinere Icons in den Buttons */
+        width: 40px;
     }
+
     textarea {
-        min-height: 120px; /* Höhere Mindesthöhe auf kleinen Bildschirmen */
+        max-width: none; /* Entfernt die maximale Breite, um die volle Breite zu nutzen */
+        height: 120px; /* Höhe erhöhen für bessere Lesbarkeit */
+    }
+
+    footer {
+        padding: 10px 20px; /* Weniger Padding, um Platz zu sparen */
     }
 }

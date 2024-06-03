@@ -9,18 +9,19 @@
     <audio id="beepSound" src="beep.mp3"></audio>    
 </head>
 <body>
-    <h1>OCR Recognition</h1>
-    <div class="media-container">
-        <video id="video" autoplay playsinline></video>
-        <canvas id="canvas" hidden></canvas>
-    </div>
-
-    <div class="zoom-container">
-        <button id="zoomInBtn" aria-label="Vergrößern">
+    <header>
+        <h1>OCR Recognition</h1>
+    </header>
+    <video id="video" width="320" height="200" autoplay playsinline></video>
+    
+    <div class="zoom-button-container">
+        <button id="zoomInBtn">
             <img src="zoomin.png" alt="Zoom In">
+            <div class="tooltip-text">Zoom In</div>
         </button>
-        <button id="zoomOutBtn" aria-label="Verkleinern">
+        <button id="zoomOutBtn">
             <img src="zoomout.png" alt="Zoom Out">
+            <div class="tooltip-text">Zoom Out</div>
         </button>
     </div>
 
@@ -44,7 +45,7 @@
     </div>
     
     <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
-    <textarea id="textArea" rows="4" placeholder="Erkannter Text oder Barcode erscheint hier..." readonly></textarea>
+    <textarea id="textArea" placeholder="Recognized text or barcode will appear here..." readonly></textarea>
     <div id="operatingSystem"></div> 
     <div id="barcodeResult"></div> 
     <div id="locationDisplay">Ermittelt Adresse...</div>
