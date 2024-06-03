@@ -10,7 +10,10 @@
 </head>
 <body>
     <h1>OCR Recognition</h1>
-    <video id="video" width="320" height="200" autoplay playsinline></video>
+    <div class="media-container">
+        <video id="video" autoplay playsinline></video>
+        <canvas id="canvas" hidden></canvas>
+    </div>
 
     <div class="zoom-container">
         <button id="zoomInBtn" aria-label="Vergrößern">

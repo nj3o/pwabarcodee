@@ -25,14 +25,19 @@ h1 {
     margin: 1em 0; /* Korrigiert einen möglichen Fehler im Margin */
     text-align: center; /* Zentriert den Titel */
 }
+
+.media-container {
+    position: relative; /* Container für Positionierung der Inhalte */
+    width: 100%; /* Nutzt die volle verfügbare Breite */
+    max-width: 640px; /* Maximale Breite, um Überdehnung zu vermeiden */
+    margin: 20px auto; /* Zentriert den Container horizontal */
+}
 #video, #canvas {
-    width: 100%; 
-    max-width: 320px;
-    height: auto; 
-    border: 2px solid #333;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    width: 100%; /* Sorgt dafür, dass es sich an den Container anpasst */
+    max-height: 360px; /* Begrenzt die Höhe, um Überdehnung auf großen Bildschirmen zu vermeiden */
+    border-radius: 8px; /* Stilistische Wahl für abgerundete Ecken */
+    display: block; /* Block-Display entfernt unerwünschte Ränder/Abstände */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* Schatten für besseren visuellen Effekt */
 }
 
 
@@ -137,6 +142,13 @@ footer {
 @media only screen and (max-width: 600px) {
     h1 {
         font-size: 1.5em; /* Kleinere Schriftgröße für mobile Geräte */
+    }
+    .media-container {
+        max-width: 100%; /* Erlaubt es dem Container, auf kleinen Bildschirmen zu expandieren */
+    }
+
+    #video, #canvas {
+        max-height: 200px; /* Passt die Höhe auf kleineren Bildschirmen an */
     }
     .zoom-container,
     .button-container {
