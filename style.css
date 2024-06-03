@@ -21,10 +21,10 @@ main {
 }
 
 h1 {
-    font-size: 2em; 
-    margin: 1em -1;
+    font-size: 2em; /* Angepasst für bessere Sichtbarkeit auf Desktops */
+    margin: 1em 0; /* Korrigiert einen möglichen Fehler im Margin */
+    text-align: center; /* Zentriert den Titel */
 }
-
 #video, #canvas {
     width: 100%; 
     max-width: 320px;
@@ -88,15 +88,16 @@ button:active .tooltip-text {
 }
 
 textarea {
-    width: 100%;
+    width: 90%; /* Flexiblere Breitenanpassung */
     max-width: 320px;
-    height: 120px; /* Höhe so anpassen, dass sie 4 Zeilen Text zeigt */
+    min-height: 100px; /* Mindesthöhe für bessere Lesbarkeit */
+    height: auto; /* Automatische Höhe je nach Inhalt */
+    padding: 10px; /* Ausreichendes Padding */
     border-radius: 8px;
-    padding: 12px; /* Passendes Padding für Texteingabe */
-    resize: none; /* Benutzer können die Größe nicht verändern */
-    margin-top: 20px; /* Abstand von dem darüberliegenden Element */
-    font-size: 16px; /* Schriftgröße für bessere Lesbarkeit anpassen */
-    line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
+    font-size: 16px; /* Leicht lesbar auf allen Geräten */
+    line-height: 1.5; /* Bessere Zeilenhöhe */
+    resize: none;
+    margin-top: 20px;
 }
 
 
@@ -134,14 +135,26 @@ footer {
 }
 
 @media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 1.5em; /* Kleinere Schriftgröße für mobile Geräte */
+    }
+    .zoom-container,
     .button-container {
-        flex-direction: row; 
-        justify-content: space-around; 
-        gap: 10px;
+        flex-direction: row; /* Stellt sicher, dass die Buttons in einer Zeile bleiben */
+        flex-wrap: nowrap; /* Verhindert das Umbrechen der Buttons */
+        overflow-x: auto; /* Erlaubt horizontales Scrollen bei vielen Buttons */
+    }
+
+    button {
+        padding: 10px; /* Erhöht den Abstand um die Buttons, um Touch-Bedienung zu erleichtern */
+        min-width: 80px; /* Mindestbreite für bessere Touch-Zielflächen */
     }
 
     button img {
-        height: 40px; /* Kleinere Bilder auf kleineren Bildschirmen */
-        width: 40px;
+        height: 30px; /* Anpassung der Bildgröße für kleine Bildschirme */
+        width: 30px;
+    }
+    textarea {
+        min-height: 120px; /* Höhere Mindesthöhe auf kleinen Bildschirmen */
     }
 }
