@@ -2,29 +2,34 @@ body {
     font-family: 'Arial', sans-serif;
     background-color: #f0f0f0;
     margin: 0;
-    padding: 0;
+    padding-top: 70px;
+    padding-bottom: 60px; /* Platz für den festen Footer */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start; /* Start von oben, nicht zentriert, da der Header fixiert ist */
     height: 100vh;
 }
 
+/* Styling für den festen Header */
 header {
-    width: 100%; /* Sicherstellen, dass der Header die volle Breiten einnimmt */
-    background-color: #e0e0e0; /* Ein leichter Grauton, um ihn vom Rest der Seite abzuheben */
-    text-align: center; /* Zentriert den Text im Header */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtiler Schatten für eine Tiefenwirkung */
-    border-bottom: 1px solid #ccc; /* Feine Linie zur optischen Trennung */
-    padding: 20px 10px; /* Vertikales und horizontales Padding */
-    margin-top: 0;
-    margin-bottom: 10px; /* Bietet etwas Raum nach unten */
+    font-size: 18px; /* Erhöhte Lesbarkeit */
+    width: 100%; /* Sicherstellen, dass der Header die volle Breite einnimmt */
+    background-color: #e0e0e0; /* Ein leichter Grauton, hervorgehoben */
+    text-align: center; /* Text zentrieren */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Schatten für Tiefeneffekt */
+    border-bottom: 1px solid #ccc; /* Feine Linie unten */
+    padding: 20px 10px; /* Vertikales Padding für mehr Raum */
+    position: fixed; /* Fixiert den Header am oberen Rand */
+    top: 0; /* Setzt den Header ganz nach oben */
+    left: 0; /* Stellt sicher, dass er sich am linken Rand befindet */
+    right: 0; /* Stellt sicher, dass er sich am rechten Rand befindet */
+    z-index: 1000; /* Sorgt dafür, dass der Header über anderen Inhalten bleibt */
 }
 
 h1 {
-    font-size: 24px; /* Erhöht für bessere Lesbarkeit */
-    margin-top: 0; /* Entfernt den oberen Abstand, da dieser vom Header übernommen wird */
-    margin-bottom: 0; /* Kein unterer Abstand, glatte Übergänge innerhalb des Headers */
+    margin: 0; /* Entfernt jeglichen Abstand, um Platz zu sparen */
+    font-size: 24px; /* Macht den Titel deutlich sichtbar */
 }
 
 #video, #canvas, #photo {
@@ -113,8 +118,14 @@ footer {
     width: 100%;
     padding: 20px;
     text-align: center;
-    margin-top: 20px;
-    border-top: 2px solid #333;
+    background-color: #e0e0e0; /* Passend zum Header */
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Schatten nach oben, um den Eindruck von Tiefe zu geben */
+    border-top: 1px solid #ccc; /* Feine Linie oben für saubere Trennung */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
 }
 
 .blink-green {
@@ -128,7 +139,7 @@ footer {
 
 @media only screen and (max-width: 600px) {
     header {
-        font-size: 16px; /* Etwas kleinere Schriftgröße für kleine Bildschirme */
+        font-size: 16px; /* Angepasste Schriftgröße für kleine Geräte */
         padding: 15px 5px; /* Weniger Padding auf kleinen Bildschirmen */
     }
     
@@ -170,6 +181,7 @@ footer {
     }
 
     footer {
-        padding: 10px 20px; /* Weniger Padding, um Platz zu sparen */
+        padding: 10px; /* Weniger Padding für Mobilgeräte */
+        font-size: 14px; /* Kleine Schriftgröße für kleinere Bildschirme */
     }
 }
