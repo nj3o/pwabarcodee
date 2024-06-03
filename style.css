@@ -21,26 +21,26 @@ main {
 }
 
 h1 {
-    font-size: 2em; /* Angepasst für bessere Sichtbarkeit */
+    font-size: 2em; 
     margin: 1em -1;
 }
 
 #video, #canvas {
-    width: 100%; /* Dynamische Breitenanpassung */
+    width: 100%; 
     max-width: 320px;
-    height: auto; /* Höhe wird dynamisch angepasst */
+    height: auto; 
     border: 2px solid #333;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px; /* 20px Abstand am unteren Rand hinzufügen */
+    margin-bottom: 20px;
 }
 
 
 .zoom-container {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Abstand zwischen den Buttons */
-    margin-bottom: 20px; /* Abstand nach unten zu den anderen Buttons */
+    gap: 20px; 
+    margin-bottom: 20px; 
 }
 
 .button-container {
@@ -135,9 +135,9 @@ footer {
 
 @media only screen and (max-width: 600px) {
     .button-container {
-        flex-direction: row; /* Horizontal ausrichten bei kleinen Bildschirmen */
-        justify-content: space-around; /* Buttons gleichmäßig verteilen */
-        gap: 10px; /* Kleinerer Abstand bei kleineren Bildschirmen */
+        flex-direction: row; 
+        justify-content: space-around; 
+        gap: 10px;
     }
 
     button img {
