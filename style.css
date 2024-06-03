@@ -136,8 +136,6 @@ footer {
     0% { border-color: #333; }
     100% { border-color: green; }
 }
-
-@media only screen and (max-width: 600px) {
     header {
         font-size: 16px; /* Angepasste Schriftgröße für kleine Geräte */
         padding: 15px 5px; /* Weniger Padding auf kleinen Bildschirmen */
