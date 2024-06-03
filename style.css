@@ -10,28 +10,38 @@ body {
     height: 100vh;
 }
 
-h1 {
-    display: block;
-    font-size: 0.8em;
-    margin-top: 1em;
-    margin-bottom: -1em;
+main {
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-#video, #canvas, #photo {
+h1 {
+    font-size: 2em; /* Angepasst für bessere Sichtbarkeit */
+    margin: 1em -1;
+}
+
+#video, #canvas {
+    width: 100%; /* Dynamische Breitenanpassung */
+    max-width: 320px;
+    height: auto; /* Höhe wird dynamisch angepasst */
     border: 2px solid #333;
     border-radius: 8px;
-    margin-top: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px; /* 20px Abstand am unteren Rand hinzufügen */
 }
+
 
 .button-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px; /* Abstand zwischen den Schaltflächen */
-    margin-top: 20px;
+    gap: 20px; /* Abstand zwischen den Buttons */
 }
-
 
 button {
     cursor: pointer;
@@ -78,14 +88,17 @@ button:active .tooltip-text {
 }
 
 textarea {
-    margin-top: 20px;
-    width: 90%;
+    width: 100%;
     max-width: 320px;
-    height: 150px;
+    height: 120px; /* Höhe so anpassen, dass sie 4 Zeilen Text zeigt */
     border-radius: 8px;
-    padding: 12px;
-    resize: none;
+    padding: 12px; /* Passendes Padding für Texteingabe */
+    resize: none; /* Benutzer können die Größe nicht verändern */
+    margin-top: 20px; /* Abstand von dem darüberliegenden Element */
+    font-size: 16px; /* Schriftgröße für bessere Lesbarkeit anpassen */
+    line-height: 1.5; /* Zeilenhöhe für bessere Lesbarkeit */
 }
+
 
 #operatingSystem {
     margin-top: 10px;
@@ -103,7 +116,7 @@ footer {
     width: 100%;
     padding: 20px;
     text-align: center;
-    margin-top: 20px;
+    margin-top: auto;
     border-top: 2px solid #333;
 }
 
@@ -138,7 +151,6 @@ footer {
     }
 
     textarea {
-        width: 90%;
         max-width: 280px;
         height: 120px;
     }
