@@ -141,7 +141,6 @@ footer {
     body {
         padding-top: 50px; /* Reduzierter Platz für den kleineren Header */
         padding-bottom: 50px; /* Reduzierter Platz für den kleineren Footer */
-        justify-content: flex-start;
     }
 
     header, footer {
@@ -156,13 +155,13 @@ footer {
     #video, #canvas, #photo {
         width: 100%; /* Vollbreite auf kleineren Bildschirmen */
         height: auto; /* Höhe dynamisch anpassen, um das Seitenverhältnis beizubehalten */
-        margin-top: 10px; /* Geringerer Abstand zum oberen Element */
     }
 
     .zoom-button-container, .button-container {
-        flex-direction: column; /* Stackt die Buttons untereinander */
+        flex-direction: row; /* Behält die horizontale Anordnung bei */
+        flex-wrap: wrap; /* Erlaubt Wrapping der Buttons, wenn nicht genug Platz */
+        justify-content: center; /* Zentriert die Buttons */
         gap: 10px; /* Weniger Platz zwischen den Buttons */
-        align-items: center; /* Zentriert die Buttons */
     }
 
     button img {
@@ -177,8 +176,8 @@ footer {
     }
 
     #switchButton {
-        top: 45%; /* Feinabstimmung der Position, um Überlappungen zu vermeiden */
-        right: 45%;
+        top: 45%; /* Justierung der absoluten Positionierung */
+        right: 45%; /* Justierung der absoluten Positionierung */
         transform: translate(50%, -50%);
     }
 
