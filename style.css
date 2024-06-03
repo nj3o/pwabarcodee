@@ -136,3 +136,54 @@ footer {
     0% { border-color: #333; }
     100% { border-color: green; }
 }
+
+@media only screen and (max-width: 600px) {
+    body {
+        padding-top: 50px; /* Reduzierter Platz für den kleineren Header */
+        padding-bottom: 50px; /* Reduzierter Platz für den kleineren Footer */
+        justify-content: flex-start;
+    }
+
+    header, footer {
+        font-size: 14px; /* Kleinere Schriftgröße für Header und Footer */
+        padding: 10px; /* Weniger Platzbedarf */
+    }
+
+    h1 {
+        font-size: 18px; /* Angepasste Schriftgröße für den Titel */
+    }
+
+    #video, #canvas, #photo {
+        width: 100%; /* Vollbreite auf kleineren Bildschirmen */
+        height: auto; /* Höhe dynamisch anpassen, um das Seitenverhältnis beizubehalten */
+        margin-top: 10px; /* Geringerer Abstand zum oberen Element */
+    }
+
+    .zoom-button-container, .button-container {
+        flex-direction: column; /* Stackt die Buttons untereinander */
+        gap: 10px; /* Weniger Platz zwischen den Buttons */
+        align-items: center; /* Zentriert die Buttons */
+    }
+
+    button img {
+        height: 40px; /* Kleinere Buttons */
+        width: 40px;
+    }
+
+    textarea {
+        width: 90%; /* Vollbreite innerhalb des Körperbereichs */
+        max-width: none; /* Entfernt die Maximalbreite */
+        min-height: 100px; /* Größere Sichtbarkeit für Text */
+    }
+
+    #switchButton {
+        top: 45%; /* Feinabstimmung der Position, um Überlappungen zu vermeiden */
+        right: 45%;
+        transform: translate(50%, -50%);
+    }
+
+    .tooltip-text {
+        width: 100px; /* Anpassung der Tooltip-Größe für kleinere Bildschirme */
+    }
+}
+
