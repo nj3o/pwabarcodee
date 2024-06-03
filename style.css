@@ -1,0 +1,143 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 20px;
+    margin: 20px;
+}
+
+#video, #canvas, #photo {
+    border: 2px solid #333;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px; /* Abstand zwischen den Schaltflächen */
+    margin-top: 20px;
+}
+
+
+button {
+    cursor: pointer;
+    background-color: transparent; 
+    border: none;
+    position: relative;
+}
+
+button img {
+    height: 50px;
+    width: 50px;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: -30px;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+button:focus .tooltip-text,
+button:active .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+#switchButton {
+    margin-top: 10px; /* Abstand nach oben hinzufügen */
+    display: block; /* Sicherstellen, dass der Button angezeigt wird */
+    position: absolute; /* Position absolut setzen */
+    top: 50%; /* Abstand nach oben zum Kamerabereich */
+    right: 50%; /* Abstand zum rechten Rand */
+    transform: translate(50%, -50%); /* Horizontal und vertikal zentrieren */
+}
+
+textarea {
+    margin-top: 20px;
+    width: 90%;
+    max-width: 320px;
+    height: 150px;
+    border-radius: 8px;
+    padding: 12px;
+    resize: none;
+}
+
+#operatingSystem {
+    margin-top: 10px;
+}
+
+#barcodeResult {
+    margin-top: 10px;
+}
+
+#locationDisplay {
+    margin-top: 10px;
+}
+
+footer {
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+    margin-top: 20px;
+    border-top: 2px solid #333;
+}
+
+.blink-green {
+    animation: blink-green 1s steps(1) infinite alternate;
+}
+
+@keyframes blink-green {
+    0% {
+        border-color: #333;
+    }
+    100% {
+        border-color: green;
+    }
+}
+
+/* Media Query für kleine Bildschirme (bis zu 600px Breite) */
+@media only screen and (max-width: 600px) {
+    h1 {
+        font-size: 18px;
+    }
+
+    .button-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    button img {
+        height: 40px;
+        width: 40px;
+    }
+
+    textarea {
+        width: 90%;
+        max-width: 280px;
+        height: 120px;
+    }
+}
