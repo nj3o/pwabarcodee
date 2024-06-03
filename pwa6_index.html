@@ -11,16 +11,17 @@
 <body>
     <h1>OCR Recognition</h1>
     <video id="video" width="320" height="200" autoplay playsinline></video>
-    
-    <div class="button-container">
-        <button id="zoomInBtn">
+
+    <div class="zoom-container">
+        <button id="zoomInBtn" aria-label="Vergrößern">
             <img src="zoomin.png" alt="Zoom In">
-            <div class="tooltip-text">Zoom In</div>
         </button>
-        <button id="zoomOutBtn">
+        <button id="zoomOutBtn" aria-label="Verkleinern">
             <img src="zoomout.png" alt="Zoom Out">
-            <div class="tooltip-text">Zoom Out</div>
         </button>
+    </div>
+
+    <div class="button-container">
         <button id="scanBarcodeBtn">
             <img src="Scanbarcode.png" alt="Barcode scannen">
             <div class="tooltip-text">Barcode scannen</div>
