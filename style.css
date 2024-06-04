@@ -78,52 +78,6 @@ button img {
     padding: 5px 0;
     position: absolute;
     z-index: 1;
-    bottom: -30px;
-    left: 50%;
-    margin-left: -60px;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-button:focus .tooltip-text,
-button:active .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}.button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-button {
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 10px;
-}
-
-button img {
-    height: 50px;
-    width: 50px;
-}
-
-.tooltip-text {
-    visibility: hidden;
-    width: 120px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute;
-    z-index: 1;
     bottom: 60px; /* Anpassung, um Tooltip sichtbarer zu machen */
     left: 50%;
     margin-left: -60px;
@@ -204,13 +158,12 @@ footer {
         height: auto; /* Höhe dynamisch anpassen, um das Seitenverhältnis beizubehalten */
     }
 
-        .button-container {
+    .button-container {
         flex-direction: row; /* Behält die horizontale Anordnung bei */
         flex-wrap: wrap; /* Erlaubt Wrapping der Buttons, wenn nicht genug Platz */
         justify-content: center; /* Zentriert die Buttons */
         gap: 10px; /* Weniger Platz zwischen den Buttons */
     }
-    
 
     button img {
         height: 40px; /* Kleinere Buttons */
@@ -227,4 +180,5 @@ footer {
         width: 100px; /* Anpassung der Tooltip-Größe für kleinere Bildschirme */
     }
 }
+
 

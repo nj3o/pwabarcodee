@@ -137,9 +137,7 @@ function scanBarcode() {
         decoder: {
             readers: [
                 "code_128_reader", "ean_reader", "ean_8_reader",
-                "code_39_reader", "code_93_reader", "codabar_reader",
-                "upc_reader", "itf_reader", "pdf417_reader",
-                "qr_code_reader", "data_matrix_reader", "aztec_reader"
+                "code_39_reader", "qr_code_reader"  // Eingeschränkt auf häufig verwendete Barcodetypen
             ]
         }
     }, function(err) {
@@ -299,3 +297,4 @@ document.getElementById('zoomInBtn').addEventListener('click', () => {
 document.getElementById('zoomOutBtn').addEventListener('click', () => {
     setZoom(zoomLevel - 0.2);
 });
+
