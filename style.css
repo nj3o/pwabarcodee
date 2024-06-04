@@ -147,8 +147,18 @@ textarea {
     resize: none;
 }
 
-#operatingSystem, #barcodeResult, #locationDisplay {
+#operatingSystem, #locationDisplay {
     margin-top: 10px;
+}
+
+#barcodeResult {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: lightgreen; /* Hellgrünes Kästchen */
+    border: 2px solid green;
+    border-radius: 8px;
+    font-size: 18px;
+    text-align: center;
 }
 
 footer {

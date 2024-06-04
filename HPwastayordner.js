@@ -11,7 +11,7 @@ const userAgent = navigator.userAgent;
 const os = getOS(userAgent);
 let currentStream;
 
-operatingSystemDisplay.textContent = 'Operating System: ' + os;
+operatingSystemDisplay.textContent = 'Operating System: ' + os; 
 
 // Start Video Funktion
 function startVideo(stream) {
@@ -26,9 +26,9 @@ function isMobileDevice() {
 function showButtonOnMobile(buttonId) {
     const button = document.getElementById(buttonId);
     if (isMobileDevice()) {
-        button.style.display = 'block';
+        button.style.display = 'block'; 
     } else {
-        button.style.display = 'none';
+        button.style.display = 'none'; 
     }
 }
 document.addEventListener('DOMContentLoaded', () => {
@@ -63,10 +63,7 @@ switchButton.addEventListener('click', async () => {
 // Setup Event Listeners Funktion
 function setupEventListeners() {
     captureBtn.addEventListener('click', captureImageForOCR);
-    scanBarcodeBtn.addEventListener('click', () => {
-        Quagga.stop();
-        scanBarcode();
-    });
+    scanBarcodeBtn.addEventListener('click', scanBarcode);
     refreshLocationBtn.addEventListener('click', () => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(fetchAndDisplayAddress, showError);
@@ -87,44 +84,51 @@ function getOS(userAgent) {
 
 // Texterkennung
 function captureImageForOCR() {
-    const context = canvas.getContext('2d');
-    context.drawImage(video, 0, 0, canvas.width, canvas.height);
-    const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+const context = canvas.getContext('2d');
+context.drawImage(video, 0, 0, canvas.width, canvas.height);
+const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
 
-    // Rauschentfernung
-    const noiseRemovedData = removeNoise(imageData);
+// Rauschentfernung
+const noiseRemovedData = removeNoise(imageData);
 
-    // Binarisierung
-    const binarizedData = binarizeImage(noiseRemovedData);
-    context.putImageData(binarizedData, 0, 0);
+// Binarisierung
+const binarizedData = binarizeImage(noiseRemovedData);
+context.putImageData(binarizedData, 0, 0);
 
-    const imageDataUrl = canvas.toDataURL('image/png');
+const imageDataUrl = canvas.toDataURL('image/png');
 
-    if ('vibrate' in navigator) {
-        navigator.vibrate([200]); // Vibration auslösen
-    }
-    canvas.style.backgroundColor = '#ffcc00'; // Hintergrundfarbe ändern, um Erfolg anzuzeigen
-
-    Tesseract.recognize(
-        imageDataUrl,
-        'deu',
-        {
-            logger: m => console.log(m)
-        }
-    ).then(({ data: { text } }) => {
-        textArea.value = text; // Erkannten Text anzeigen
-        canvas.style.backgroundColor = ''; // Hintergrundfarbe zurücksetzen
-
-        // Ändere die Hintergrundfarbe des Videos für 1 Sekunde
-        video.style.backgroundColor = 'lightgreen';
-        setTimeout(() => {
-            video.style.backgroundColor = '';
-        }, 1000);
-
-        const beepSound = document.getElementById('beepSound');
-        beepSound.play(); // Beep-Sound abspielen
-    });
+if ('vibrate' in navigator) {
+    navigator.vibrate([200]); // Vibration auslösen
 }
+canvas.style.backgroundColor = '#ffcc00'; // Hintergrundfarbe ändern, um Erfolg anzuzeigen
+
+Tesseract.recognize(
+    imageDataUrl,
+    'deu',
+    {
+        logger: m => console.log(m)
+    }
+).then(({ data: { text } }) => {
+    textArea.value = text; // Erkannten Text anzeigen
+    canvas.style.backgroundColor = ''; // Hintergrundfarbe zurücksetzen
+
+    // Ändere die Hintergrundfarbe des Videos für 1 Sekunde
+    video.style.backgroundColor = 'lightgreen';
+    setTimeout(() => {
+        video.style.backgroundColor = '';
+    }, 1000);
+
+    const beepSound = document.getElementById('beepSound');
+    beepSound.play(); // Beep-Sound abspielen
+});
+}
+
+// Event-Listener für den Barcode-Button
+scanBarcodeBtn.addEventListener('click', () => {
+Quagga.stop();
+scanBarcode();
+playBeepAndVibrate();
+});
 
 // Barcode Scanning Funktion
 function scanBarcode() {
@@ -135,12 +139,7 @@ function scanBarcode() {
             target: video    // Or '#yourElement' (optional)
         },
         decoder: {
-            readers: [
-                "code_128_reader", "ean_reader", "ean_8_reader",
-                "code_39_reader", "code_93_reader", "codabar_reader",
-                "upc_reader", "itf_reader", "pdf417_reader",
-                "qr_code_reader", "data_matrix_reader", "aztec_reader"
-            ]
+            readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_93_reader", "codabar_reader", "upc_reader", "itf_reader", "pdf417_reader", "qr_code_reader", "data_matrix_reader", "aztec_reader"]
         }
     }, function(err) {
         if (err) {
@@ -164,12 +163,12 @@ function scanBarcode() {
 
 // Funktion zum Abspielen von Ton und Vibration
 function playBeepAndVibrate() {
-    const beepSound = document.getElementById('beepSound');
-    beepSound.play();
+const beepSound = document.getElementById('beepSound');
+beepSound.play();
 
-    if ('vibrate' in navigator) {
-        navigator.vibrate([200]);
-    }
+if ('vibrate' in navigator) {
+    navigator.vibrate([200]); 
+}
 }
 
 // Geolocation
@@ -279,18 +278,17 @@ function removeNoise(imageData) {
 let zoomLevel = 1;
 
 function setZoom(level) {
-    if (currentStream) {
-        const track = currentStream.getVideoTracks()[0];
-        const capabilities = track.getCapabilities();
-        if (capabilities.zoom) {
-            zoomLevel = Math.min(Math.max(level, capabilities.zoom.min), capabilities.zoom.max);
-            track.applyConstraints({ advanced: [{ zoom: zoomLevel }] });
-        } else {
-            console.log('Zoom wird von dieser Kamera nicht unterstützt.');
-        }
+if (currentStream) {
+    const track = currentStream.getVideoTracks()[0];
+    const capabilities = track.getCapabilities();
+    if (capabilities.zoom) {
+        zoomLevel = Math.min(Math.max(level, capabilities.zoom.min), capabilities.zoom.max);
+        track.applyConstraints({ advanced: [{ zoom: zoomLevel }] });
+    } else {
+        console.log('Zoom wird von dieser Kamera nicht unterstützt.');
     }
 }
-
+}
 // Setup Event Listeners für die Zoom-Buttons
 document.getElementById('zoomInBtn').addEventListener('click', () => {
     setZoom(zoomLevel + 0.2);
