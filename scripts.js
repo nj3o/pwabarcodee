@@ -10,6 +10,7 @@ const barcodeResultDisplay = document.getElementById('barcodeResult');
 const userAgent = navigator.userAgent;
 const os = getOS(userAgent);
 let currentStream;
+let codeReader;
 
 operatingSystemDisplay.textContent = 'Operating System: ' + os;
 
@@ -23,6 +24,7 @@ function startVideo(stream) {
 function isMobileDevice() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
+
 function showButtonOnMobile(buttonId) {
     const button = document.getElementById(buttonId);
     if (isMobileDevice()) {
@@ -31,8 +33,11 @@ function showButtonOnMobile(buttonId) {
         button.style.display = 'none';
     }
 }
+
 document.addEventListener('DOMContentLoaded', () => {
     showButtonOnMobile('switchButton');
+    setupEventListeners();
+    initializeCamera();
 });
 
 async function initializeCamera() {
@@ -63,10 +68,7 @@ switchButton.addEventListener('click', async () => {
 // Setup Event Listeners Funktion
 function setupEventListeners() {
     captureBtn.addEventListener('click', captureImageForOCR);
-    scanBarcodeBtn.addEventListener('click', () => {
-        Quagga.stop();
-        scanBarcode();
-    });
+    scanBarcodeBtn.addEventListener('click', scanBarcode);
     refreshLocationBtn.addEventListener('click', () => {
         if ("geolocation" in navigator) {
             navigator.geolocation.getCurrentPosition(fetchAndDisplayAddress, showError);
@@ -127,82 +129,29 @@ function captureImageForOCR() {
 }
 
 // Barcode Scanning Funktion
-function scanBarcode() {
-    Quagga.init({
-        inputStream: {
-            name: "Live",
-            type: "LiveStream",
-            target: video, // Or '#yourElement' (optional)
-            constraints: {
-                width: { min: 640 },
-                height: { min: 480 },
-                aspectRatio: { min: 1, max: 100 },
-                facingMode: "environment" // use the rear camera
-            }
-        },
-        locator: {
-            patchSize: "medium", // x-small, small, medium, large, x-large
-            halfSample: true
-        },
-        numOfWorkers: navigator.hardwareConcurrency || 4, // number of workers
-        frequency: 10, // scan frequency
-        decoder: {
-            readers: [
-                "code_128_reader", "ean_reader", "ean_8_reader",
-                "code_39_reader", "qr_code_reader"  // Eingeschränkt auf häufig verwendete Barcodetypen
-            ],
-            debug: {
-                drawBoundingBox: true,
-                showFrequency: false,
-                drawScanline: true,
-                showPattern: true
-            }
-        },
-        locate: true
-    }, function(err) {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log("Initialization finished. Ready to start");
-        Quagga.start();
-    });
+async function scanBarcode() {
+    if (!codeReader) {
+        codeReader = new ZXing.BrowserMultiFormatReader();
+    }
 
-    Quagga.onProcessed(function(result) {
-        const drawingCtx = Quagga.canvas.ctx.overlay,
-              drawingCanvas = Quagga.canvas.dom.overlay;
-
-        if (result) {
-            if (result.boxes) {
-                drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
-                result.boxes.filter(function (box) {
-                    return box !== result.box;
-                }).forEach(function (box) {
-                    Quagga.ImageDebug.drawPath(box, {x: 0, y: 1}, drawingCtx, {color: "green", lineWidth: 2});
-                });
+    try {
+        const result = await codeReader.decodeFromVideoDevice(undefined, 'video', (result, err) => {
+            if (result) {
+                barcodeResultDisplay.textContent = `Code: ${result.text}, Format: ${result.format}`;
+                barcodeResultDisplay.style.backgroundColor = 'lightgreen';
+                playBeepAndVibrate();
+                codeReader.reset();
             }
-
-            if (result.box) {
-                Quagga.ImageDebug.drawPath(result.box, {x: 0, y: 1}, drawingCtx, {color: "#00F", lineWidth: 2});
+            if (err && !(err instanceof ZXing.NotFoundException)) {
+                console.error(err);
+                barcodeResultDisplay.textContent = "Scan-Fehler: " + err;
             }
-
-            if (result.codeResult && result.codeResult.code) {
-                Quagga.ImageDebug.drawPath(result.line, {x: 'x', y: 'y'}, drawingCtx, {color: 'red', lineWidth: 3});
-            }
-        }
-    });
-
-    Quagga.onDetected(function(result) {
-        if (result.codeResult) {
-            const code = result.codeResult.code;
-            barcodeResultDisplay.textContent = `Code: ${code}, Format: ${result.codeResult.format}`;
-            barcodeResultDisplay.style.backgroundColor = 'lightgreen';
-            playBeepAndVibrate();
-            Quagga.stop();
-        }
-    });
+        });
+    } catch (err) {
+        console.error(err);
+        barcodeResultDisplay.textContent = "Scan-Fehler: " + err;
+    }
 }
-
 
 // Funktion zum Abspielen von Ton und Vibration
 function playBeepAndVibrate() {
@@ -237,9 +186,6 @@ function showError(error) {
 navigator.mediaDevices.getUserMedia({ video: true })
     .then(startVideo)
     .catch(err => console.error("Failed to get video stream:", err));
-
-setupEventListeners();
-initializeCamera();
 
 // Funktion zur Berechnung der DPI eines Bildes
 function calculateDPI(width, height) {
@@ -341,5 +287,3 @@ document.getElementById('zoomInBtn').addEventListener('click', () => {
 document.getElementById('zoomOutBtn').addEventListener('click', () => {
     setZoom(zoomLevel - 0.2);
 });
-
-
