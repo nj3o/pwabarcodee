@@ -126,59 +126,37 @@ Tesseract.recognize(
 // Event-Listener für den Barcode-Button
 scanBarcodeBtn.addEventListener('click', () => {
 Quagga.stop();
-playBeepAndVibrate();
 scanBarcode();
+playBeepAndVibrate();
 });
 
+// Barcode Scanning Funktion
 function scanBarcode() {
-Quagga.init({
-    inputStream: {
-        name: "Live",
-        type: "LiveStream",
-        target: video
-    },
-    decoder: {
-        readers: ["ean_reader"]
-    }
-}, function (err) {
-    if (err) {
-        video.style.backgroundColor = 'lightred';
-        setTimeout(() => {
-            video.style.backgroundColor = '';
-        }, 1000);
-    }
-    //var rc = 
-    Quagga.start();
-    //console.log('Quagga startet:', rc);
-    
-    Quagga.onDetected(function (result) {
-        barcodeResultDisplay.textContent = 'Barcode: ' + result.codeResult.code;
-        Quagga.stop();
-
-
-        // Funktion zum Abspielen von Ton und Vibration aufrufen
-        playBeepAndVibrate();
-
-        barcodeResultDisplay.style.backgroundColor = 'lightgreen';
-        setTimeout(() => {
-            barcodeResultDisplay.style.backgroundColor = '';
-        }, 1000);
-
-        // Ändere die Hintergrundfarbe des Videos für 1 Sekunde
-        video.style.backgroundColor = 'lightgreen';
-        setTimeout(() => {
-            video.style.backgroundColor = '';
-        }, 1000);
+    Quagga.init({
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: document.querySelector('#video')
+        },
+        decoder: {
+            readers: ["aztec_reader", "code_128_reader", "code_39_reader", "code_93_reader", "codabar_reader", "data_matrix_reader", "ean_reader", "ean_8_reader", "itf_reader", "pdf417_reader", "qr_code_reader", "upc_reader"]
+        }
+    }, function(err) {
+        if (err) {
+            console.log(err, "Error in starting Quagga");
+            return
+        }
+        console.log("Quagga initialization finished. Ready to start");
+        Quagga.start();
     });
-});
-}
 
-// Blinkende grünen Rahmen
-function blinkGreenBorder() {
-    video.classList.add('blink-green');
-    setTimeout(() => {
-        video.classList.remove('blink-green');
-    }, 1000);
+    Quagga.onDetected(function(result) {
+        const barcodeData = result.codeResult.code;
+        const numbersOnly = barcodeData.replace(/\D/g, ''); // Extract numbers from barcodeData
+        document.getElementById('barcodeResult').textContent = 'Barcode Numbers: ' + numbersOnly;
+        playBeepAndVibrate();
+        Quagga.stop();
+    });
 }
 
 
@@ -191,6 +169,7 @@ if ('vibrate' in navigator) {
     navigator.vibrate([200]); 
 }
 }
+
 // Geolocation
 function fetchAndDisplayAddress(position) {
     const { latitude, longitude } = position.coords;
