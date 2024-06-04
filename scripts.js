@@ -298,3 +298,4 @@ document.getElementById('zoomOutBtn').addEventListener('click', () => {
     setZoom(zoomLevel - 0.2);
 });
 
+
