@@ -185,7 +185,6 @@ function scanBarcode() {
         const code = result.codeResult.code;
         console.log(`Barcode erkannt: ${code}`);
         resultElement.innerText = `Erkannter Barcode: ${code}`;
-        playBeepAndVibrate();
     });
 }
 
