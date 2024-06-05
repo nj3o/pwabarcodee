@@ -6,7 +6,7 @@ const switchButton = document.getElementById('switchButton');
 const video = document.getElementById('video');
 const canvas = document.getElementById('canvas');
 const textArea = document.getElementById('textArea');
-const barcodeResultDisplay = document.getElementById('barcodeResult');
+const resultElement = document.getElementById('result');
 const userAgent = navigator.userAgent;
 const os = getOS(userAgent);
 let currentStream;
@@ -36,6 +36,7 @@ function showButtonOnMobile(buttonId) {
 
 document.addEventListener('DOMContentLoaded', () => {
     showButtonOnMobile('switchButton');
+    scanBarcode();
     setupEventListeners();
     initializeCamera();
 });
@@ -128,20 +129,18 @@ function captureImageForOCR() {
     });
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    const resultElement = document.getElementById('result');
-
+function scanBarcode() {
     Quagga.init({
         inputStream: {
             name: "Live",
             type: "LiveStream",
-            target: document.querySelector('#scanner'), // Video-Element
+            target: document.querySelector('#video'),  
             constraints: {
-                facingMode: "environment" // Rückkamera
+                facingMode: "environment" 
             },
         },
         decoder: {
-            readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader", "code_93_reader"]
+            readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "codabar_reader", "upc_reader"]
         },
     }, function(err) {
         if (err) {
@@ -186,8 +185,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const code = result.codeResult.code;
         console.log(`Barcode erkannt: ${code}`);
         resultElement.innerText = `Erkannter Barcode: ${code}`;
+        playBeepAndVibrate();
     });
-});
+}
 
 // Funktion zum Abspielen von Ton und Vibration
 function playBeepAndVibrate() {
@@ -264,7 +264,7 @@ function removeNoise(imageData) {
 
     function getPixel(x, y) {
         if (x < 0 || x >= width || y < 0 || y >= height) {
-            return [255, 255, 255]; // return white for out-of-bounds pixels
+            return [255, 255, 255]; 
         }
         const index = (y * width + x) * 4;
         return [pixels[index], pixels[index + 1], pixels[index + 2]];
@@ -292,7 +292,7 @@ function removeNoise(imageData) {
             output[index] = median(reds);
             output[index + 1] = median(greens);
             output[index + 2] = median(blues);
-            output[index + 3] = pixels[index + 3]; // alpha
+            output[index + 3] = pixels[index + 3]; 
         }
     }
 
