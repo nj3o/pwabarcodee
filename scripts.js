@@ -128,30 +128,66 @@ function captureImageForOCR() {
     });
 }
 
-// Barcode Scanning Funktion
-async function scanBarcode() {
-    if (!codeReader) {
-        codeReader = new ZXing.BrowserMultiFormatReader();
-    }
+document.addEventListener("DOMContentLoaded", function() {
+    const resultElement = document.getElementById('result');
 
-    try {
-        const result = await codeReader.decodeFromVideoDevice(undefined, 'video', (result, err) => {
-            if (result) {
-                barcodeResultDisplay.textContent = `Code: ${result.text}, Format: ${result.format}`;
-                barcodeResultDisplay.style.backgroundColor = 'lightgreen';
-                playBeepAndVibrate();
-                codeReader.reset();
+    Quagga.init({
+        inputStream: {
+            name: "Live",
+            type: "LiveStream",
+            target: document.querySelector('#scanner'), // Video-Element
+            constraints: {
+                facingMode: "environment" // Rückkamera
+            },
+        },
+        decoder: {
+            readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader", "2of5_reader", "code_93_reader"]
+        },
+    }, function(err) {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log("QuaggaJS initialisiert.");
+        Quagga.start();
+    });
+
+    Quagga.onProcessed(function(result) {
+        const drawingCtx = Quagga.canvas.ctx.overlay;
+        const drawingCanvas = Quagga.canvas.dom.overlay;
+
+        if (result) {
+            if (result.boxes) {
+                drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+                result.boxes.filter(function(box) {
+                    return box !== result.box;
+                }).forEach(function(box) {
+                    Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+                        color: "green",
+                        lineWidth: 2
+                    });
+                });
             }
-            if (err && !(err instanceof ZXing.NotFoundException)) {
-                console.error(err);
-                barcodeResultDisplay.textContent = "Scan-Fehler: " + err;
+
+            if (result.box) {
+                Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, {
+                    color: "#00F",
+                    lineWidth: 2
+                });
             }
-        });
-    } catch (err) {
-        console.error(err);
-        barcodeResultDisplay.textContent = "Scan-Fehler: " + err;
-    }
-}
+
+            if (result.codeResult && result.codeResult.code) {
+                resultElement.innerText = `Barcode: ${result.codeResult.code}`;
+            }
+        }
+    });
+
+    Quagga.onDetected(function(result) {
+        const code = result.codeResult.code;
+        console.log(`Barcode erkannt: ${code}`);
+        resultElement.innerText = `Erkannter Barcode: ${code}`;
+    });
+});
 
 // Funktion zum Abspielen von Ton und Vibration
 function playBeepAndVibrate() {

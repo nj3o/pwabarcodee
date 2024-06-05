@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode/Text Scan</title>
     <script src='https://unpkg.com/tesseract.js@2.1.0/dist/tesseract.min.js'></script>
-    <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.18.6/umd/index.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <audio id="beepSound" src="beep.mp3"></audio>
 </head>
@@ -43,13 +43,14 @@
                 <img src="Texterkennung_Piktogramm.png" alt="Texterkennung">
                 <div class="tooltip-text">Text erkennen</div>
             </button>
+            <video id="scanner" style="width: 100%;"></video>
         </div>
     </div>
 
     <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
     <textarea id="textArea" placeholder="Recognized text or barcode will appear here..." readonly></textarea>
     <div id="operatingSystem"></div>
-    <div id="barcodeResult"></div>
+    <div id="result"></div>
     <div id="locationDisplay">Ermittelt Adresse...</div>
     <footer>
         &copy; 2024 Aveniq | Owned and Created
