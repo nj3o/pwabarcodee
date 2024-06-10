@@ -4,18 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Barcode/Text Scan</title>
-    <script src='https://unpkg.com/tesseract.js@2.1.0/dist/tesseract.min.js'></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-    <audio id="beepSound" src="beep.mp3"></audio>
+    <script src='https://unpkg.com/tesseract.js@2.1.0/dist/tesseract.min.js'></script> <!--Tesseract.js Einbindung-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quagga/0.12.1/quagga.min.js"></script><!--Quagga.js Einbindung-->
+    <link rel="stylesheet" href="style.css"><!--Style.css Einbindung-->
+    <audio id="beepSound" src="beep.mp3"></audio> <!--Sound Einbindung-->
 </head>
 <body>
     <header>
-        <h1>OCR Recognition</h1>
+        <h1>OCR Recognition</h1> <!--Haupttitel-->
     </header>
+
+    <!--Videoelement Anzeige-->
     <video id="video" width="320" height="200" autoplay playsinline></video>
 
+    <!--Buttoncontiner für Horizontale Anordnung-->
     <div class="button-container">
+        <!--Zoom/Kamerawechsel-->
         <div class="alleBTN">
             <button id="zoomInBtn">
                 <img src="zoomin.png" alt="Zoom In">
@@ -30,6 +34,7 @@
                 <div class="tooltip-text">Kamera wechseln</div>
             </button>
         </div>
+        <!--ScanBarcode/Standortsuche/Texterkennung-->
         <div class="switchBTN">
             <button id="scanBarcodeBtn">
                 <img src="Scanbarcode.png" alt="Barcode scannen">
@@ -46,14 +51,20 @@
         </div>
     </div>
 
+    <!--Canvas-Element für temporäre Bildbearbeitung-->
     <canvas id="canvas" width="320" height="240" style="display: none;"></canvas>
+    <!--Textanzeige von OCR-Text-->
     <textarea id="textArea" placeholder="Recognized text or barcode will appear here..." readonly></textarea>
+    <!--Systemanzeige-->
     <div id="operatingSystem"></div>
+    <!--Barcoderesultat-->
     <div id="result"></div>
+    <!--Standortanzeige-->
     <div id="locationDisplay">Ermittelt Adresse...</div>
     <footer>
         &copy; 2024 Aveniq | Owned and Created
     </footer>
+    <!--Javascript Einbindung-->
     <script src="scripts.js"></script>
 </body>
 </html>
