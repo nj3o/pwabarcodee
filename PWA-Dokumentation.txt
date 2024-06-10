@@ -1,9 +1,9 @@
-Einführung
+**Einführung**
 Dieses Projekt bietet eine PWA (Progressive-Web-App) zur Barcode, Standort, Geräte und Texterkennung dar. 
 Um Barcodes zu erkennen wurde die QuggaJS Library genommen, für die Texterkennung wird Tesseract.js verwendet. Diese Librarys sind schon eingebunden.
 Die Anwendung zielt auf Mobile-Geräte, kann aber auch auf Laptop's/PC's verwendet werden.
 
-Die zwei Wichtigsten Links:
+*Die zwei Wichtigsten Links:*
 
 Main: https://nj3o.github.io/pwabarcodee/pwa6_index.html
 
